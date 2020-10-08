@@ -30,7 +30,7 @@ public class Transactions {
     private String foreignAccount;
 
     @Column(name = "date_and_time")
-    private Date DateAndTime;
+    private Date dateAndTime;
 
     public Transactions() {
     }
