@@ -48,10 +48,14 @@ CREATE TABLE `account_types` (
 `account_type_name` varchar(15) NOT NULL
 );
 
+DROP TABLE IF EXISTS `currencies`;
+
 CREATE TABLE `currencies` (
 `currency_id` int(1),
 `currency_name` varchar(3) NOT NULL
 );
+
+DROP TABLE IF EXISTS `transaction_types`;
 
 CREATE TABLE `transaction_types` (
 `transaction_type_id` int(1),
