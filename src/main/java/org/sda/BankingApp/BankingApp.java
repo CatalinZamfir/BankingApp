@@ -2,7 +2,11 @@ package org.sda.BankingApp;
 
 public class BankingApp {
 
-    private String userName;
+    public static void main(String[] args) {
+
+        StartMenu.loadStartMenu();
+
+    }
 
 }
 
