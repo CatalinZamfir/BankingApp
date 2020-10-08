@@ -32,7 +32,7 @@ public class HibernateUtil {
         settings.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
         configuration.setProperties(settings);
 
-        configuration.addAnnotatedClass(Client.class);//
+//        configuration.addAnnotatedClass(Client.class);
 
         return configuration;
     }
