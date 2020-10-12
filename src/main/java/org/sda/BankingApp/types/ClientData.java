@@ -65,16 +65,4 @@ public class ClientData {
         this.account = account;
     }
 
-    @Override
-    public String toString() {
-        return "ClientData{" +
-                "username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", cnp=" + cnp +
-                ", email='" + email + '\'' +
-                ", account=" + account +
-                '}';
-    }
 }

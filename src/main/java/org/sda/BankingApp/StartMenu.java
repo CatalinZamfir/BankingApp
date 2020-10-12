@@ -75,7 +75,6 @@ public class StartMenu {
             clientData.setEmail(email);
             break;
         }
-        System.out.println(clientData);
         ClientDataDao.createNewClient(clientData);
     }
 }
