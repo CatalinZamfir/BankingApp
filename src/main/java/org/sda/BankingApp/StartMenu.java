@@ -29,6 +29,27 @@ public class StartMenu {
     }
 
     public static void login() {
+        Scanner input1 = new Scanner(System.in);
+        String username;
+        while (true) {
+            System.out.print("Username: ");
+            username = input1.nextLine();
+            break;
+        }
+        String password;
+        Scanner input2 = new Scanner(System.in);
+        while (true) {
+            System.out.print("Password: ");
+            password = input2.nextLine();
+            break;
+        }
+        ClientData user = ClientDataDao.findByUsername(username);
+        if (user != null && user.getPassword().equals(password)) {
+            System.out.println("Login successful!");
+        } else {
+            System.out.println("Username or password incorrect.");
+        }
+
     }
 
     public static void register() {
@@ -37,15 +58,23 @@ public class StartMenu {
         while (true) {
             System.out.print("Please enter a new Username: ");
             String username = input1.nextLine();
-            clientData.setUsername(username);
-            break;
+            if (ClientDataDao.findByUsername(username) == null) {
+                clientData.setUsername(username);
+                break;
+            } else {
+                System.out.println("Username is already taken.");
+            }
         }
         Scanner input2 = new Scanner(System.in);
         while (true) {
             System.out.print("Please enter a password: ");
             String password = input2.nextLine();
-            clientData.setPassword(password);
-            break;
+            if (password.length() >= 5) {
+                clientData.setPassword(password);
+                break;
+            } else {
+                System.out.println("Password has to be at least 5 characters long.");
+            }
         }
         Scanner input3 = new Scanner(System.in);
         while (true) {
@@ -62,11 +91,22 @@ public class StartMenu {
             break;
         }
         Scanner input5 = new Scanner(System.in);
+        Long cnp;
         while (true) {
             System.out.print("Please enter your CNP: ");
-            long cnp = input5.nextLong();
-            clientData.setCnp(cnp);
-            break;
+            try {
+                cnp = input5.nextLong();
+                int cnpLength = String.valueOf(cnp).length();
+                if (cnpLength == 13 && (String.valueOf(cnp).startsWith("1") || String.valueOf(cnp).startsWith("2"))) {
+                    clientData.setCnp(cnp);
+                    break;
+                } else {
+                    System.out.println("Please enter a valid CNP.");
+                }
+            } catch (java.util.InputMismatchException e) {
+                input5.nextLine();
+                System.out.println("Please enter a valid CNP.");
+            }
         }
         Scanner input6 = new Scanner(System.in);
         while (true) {
@@ -76,5 +116,7 @@ public class StartMenu {
             break;
         }
         ClientDataDao.createNewClient(clientData);
+        System.out.println("\nNew user account created successfully! Please login with your new credentials.\n");
+        login();
     }
 }

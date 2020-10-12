@@ -10,12 +10,12 @@ import org.sda.BankingApp.types.ClientData;
 import org.sda.BankingApp.types.Transactions;
 import java.util.Properties;
 
-import static java.util.logging.Level.WARNING;
+import static java.util.logging.Level.SEVERE;
 
 public class HibernateUtil {
 
     public static SessionFactory getSessionFactory() {
-//        java.util.logging.Logger.getLogger("org.hibernate").setLevel(WARNING);
+        java.util.logging.Logger.getLogger("org.hibernate").setLevel(SEVERE);
         Configuration configuration = createConfig();
         ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
             .applySettings(configuration.getProperties()).build();
@@ -32,7 +32,6 @@ public class HibernateUtil {
         settings.put(Environment.DIALECT, "org.hibernate.dialect.MySQL8Dialect");
         settings.put(Environment.SHOW_SQL, "false");
         settings.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
-        settings.put(Environment.HBM2DDL_AUTO, "create");
         configuration.setProperties(settings);
 
         configuration.addAnnotatedClass(Account.class);

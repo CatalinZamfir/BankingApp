@@ -31,16 +31,7 @@ public class Account {
     @Column(name = "currency")
     private Currency currency;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "username")
-    private ClientData clientData;
-
-    @OneToMany(mappedBy = "account")
-    private List<Transactions> transactions = new ArrayList<>();
-
     public Account() {
     }
-
-
 
 }

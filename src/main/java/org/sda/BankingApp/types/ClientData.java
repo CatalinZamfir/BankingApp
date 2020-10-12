@@ -23,46 +23,59 @@ public class ClientData {
     private String lastName;
 
     @Column(name = "cnp")
-    private long cnp;
+    private Long cnp;
 
     @Column(name = "email")
     private String email;
 
-    @OneToMany(
-            mappedBy = "client_data",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true)
-    private List<Account> account = new ArrayList<>();
-
     public ClientData() {
+    }
+
+    public String getUsername() {
+        return username;
     }
 
     public void setUsername(String username) {
         this.username = username;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getFirstName() {
+        return firstName;
     }
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
+    public String getLastName() {
+        return lastName;
+    }
+
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
-    public void setCnp(long cnp) {
+    public long getCnp() {
+        return cnp;
+    }
+
+    public void setCnp(Long cnp) {
         this.cnp = cnp;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
     }
-
-    public void setAccount(List<Account> account) {
-        this.account = account;
-    }
-
 }
