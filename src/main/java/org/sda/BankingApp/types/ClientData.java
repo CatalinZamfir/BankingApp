@@ -11,7 +11,7 @@ public class ClientData {
 
     @Id
     @Column(name = "username")
-    private int username;
+    private String username;
 
     @Column(name = "password")
     private String password;
@@ -23,7 +23,7 @@ public class ClientData {
     private String lastName;
 
     @Column(name = "cnp")
-    private int cnp;
+    private long cnp;
 
     @Column(name = "email")
     private String email;
@@ -37,4 +37,31 @@ public class ClientData {
     public ClientData() {
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setCnp(long cnp) {
+        this.cnp = cnp;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setAccount(List<Account> account) {
+        this.account = account;
+    }
 }
