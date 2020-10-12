@@ -46,6 +46,25 @@ public class ClientDataDao {
         return result;
     }
 
+    public static ClientData checkCredentials(String user, String pass) {
+        ClientData result = null;
+        try (Session session = getSession()) {
+            String findByUsernameHql = "FROM ClientData p WHERE p.username = :username AND p.password = :password";
+            Query<ClientData> query = session.createQuery(findByUsernameHql);
+            query.setParameter("username", user);
+            query.setParameter("password", pass);
+            List<ClientData> foundPlayers = query.getResultList();
+            if (foundPlayers.isEmpty()) {
+                return result;
+            } else {
+                result = foundPlayers.get(0);
+            }
+        } catch (HibernateException e) {
+            System.out.println(e.getMessage());
+        }
+        return result;
+    }
+
     private static Session getSession() {
         return HibernateUtil.getSessionFactory().openSession();
     }

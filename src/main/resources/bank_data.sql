@@ -10,7 +10,7 @@ CREATE TABLE `client_data` (
   `password` varchar(45) NOT NULL,
   `first_name` varchar(45) NOT NULL,
   `last_name` varchar(45) NOT NULL,
-  `cnp` int(13) NOT NULL,
+  `cnp` bigint(13) NOT NULL,
   `email` varchar(45) NOT NULL,
   PRIMARY KEY (`username`)
 );
