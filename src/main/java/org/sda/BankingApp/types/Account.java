@@ -31,7 +31,12 @@ public class Account {
     @Column(name = "currency")
     private Currency currency;
 
+    @OneToMany
+    private List<Transactions> transactions = new ArrayList<>();
+
     public Account() {
     }
+
+
 
 }

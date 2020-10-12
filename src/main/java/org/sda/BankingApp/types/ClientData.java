@@ -28,6 +28,11 @@ public class ClientData {
     @Column(name = "email")
     private String email;
 
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    private List<Account> accounts = new ArrayList<>();
+
     public ClientData() {
     }
 
