@@ -15,7 +15,7 @@ import static java.util.logging.Level.WARNING;
 public class HibernateUtil {
 
     public static SessionFactory getSessionFactory() {
-        java.util.logging.Logger.getLogger("org.hibernate").setLevel(WARNING);
+//        java.util.logging.Logger.getLogger("org.hibernate").setLevel(WARNING);
         Configuration configuration = createConfig();
         ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
             .applySettings(configuration.getProperties()).build();
