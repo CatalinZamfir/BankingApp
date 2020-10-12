@@ -7,10 +7,10 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity(name = "Accounts")
-@Table(name = "accounts")
+@Entity(name = "Account")
+@Table(name = "account")
 
-public class Accounts {
+public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,10 +35,12 @@ public class Accounts {
     @JoinColumn(name = "username")
     private ClientData clientData;
 
-    @OneToMany(mappedBy = "accounts")
+    @OneToMany(mappedBy = "account")
     private List<Transactions> transactions = new ArrayList<>();
 
-    public Accounts() {
+    public Account() {
     }
+
+
 
 }

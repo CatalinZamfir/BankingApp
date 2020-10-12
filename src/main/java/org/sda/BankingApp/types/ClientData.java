@@ -32,7 +32,7 @@ public class ClientData {
             mappedBy = "client_data",
             cascade = CascadeType.ALL,
             orphanRemoval = true)
-    private List<Accounts> accounts = new ArrayList<>();
+    private List<Account> account = new ArrayList<>();
 
     public ClientData() {
     }
