@@ -1,9 +1,7 @@
 package org.sda.BankingApp.types;
 
-import com.mysql.cj.xdevapi.Client;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.sda.BankingApp.config.HibernateUtil;

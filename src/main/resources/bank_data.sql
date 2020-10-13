@@ -19,7 +19,7 @@ CREATE TABLE `account` (
   `account_no` int(8) NOT NULL AUTO_INCREMENT,
   `username` varchar(15) NOT NULL,
   `account_type` int(1) NOT NULL,
-  `balance` int,
+  `balance` double DEFAULT 0,
   `currency` int(1) NOT NULL,
   PRIMARY KEY (`account_no`),
   FOREIGN KEY (`username`) REFERENCES client_data(`username`)
@@ -33,7 +33,7 @@ CREATE TABLE `transactions` (
   `account_no` int(8) NOT NULL,
   `transfer_amount` int,
   `foreign_account` varchar(34) NOT NULL,
-  `date` date NOT NULL,
+  `date_and_time` date NOT NULL,
   PRIMARY KEY (`reference_id`),
   FOREIGN KEY (`account_no`) REFERENCES account(`account_no`)
 );

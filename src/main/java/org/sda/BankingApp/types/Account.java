@@ -25,7 +25,7 @@ public class Account {
     private AccountType accountType;
 
     @Column(name = "balance")
-    private int balance;
+    private double balance;
 
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "currency")
@@ -37,6 +37,38 @@ public class Account {
     public Account() {
     }
 
+    public Account(String username, AccountType accountType, Currency currency) {
+        this.username = username;
+        this.accountType = accountType;
+        this.currency = currency;
+    }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setAccountType(AccountType accountType) {
+        this.accountType = accountType;
+    }
+
+    public void setCurrency(Currency currency) {
+        this.currency = currency;
+    }
+
+    public int getAccountNo() {
+        return accountNo;
+    }
+
+    public AccountType getAccountType() {
+        return accountType;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+
+    public Currency getCurrency() {
+        return currency;
+    }
 
 }
