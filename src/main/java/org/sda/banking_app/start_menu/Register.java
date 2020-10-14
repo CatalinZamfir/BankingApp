@@ -1,58 +1,13 @@
-package org.sda.BankingApp;
+package org.sda.banking_app.start_menu;
 
-import org.sda.BankingApp.types.ClientData;
-import org.sda.BankingApp.types.ClientDataDao;
+import org.sda.banking_app.types.ClientData;
+import org.sda.banking_app.types.ClientDataDao;
 
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class StartMenu {
-
-    public static void loadStartMenu() {
-        System.out.print("\n\u001B[7m\033[1;33m Welcome to Group4 Bank!                              \033[0m\n");
-        System.out.print("\u001B[7m\033[1;36m                                A bank you can trust. \033[0m\n\n");
-        System.out.println("[\033[1;33mL\u001B[0m] Login");
-        System.out.println("[\033[1;33mR\u001B[0m] Register\n");
-        System.out.println("[\033[1;33mE\u001B[0m] Exit\n");
-        Scanner input = new Scanner(System.in);
-        while (true) {
-            System.out.print("Choice: ");
-            String choice = input.nextLine();
-            choice = choice.toUpperCase();
-            if (choice.equals("L")) {
-                login();
-                break;
-            } else if (choice.equals("R")) {
-                register();
-                break;
-            } else if (choice.equals("E")) {
-                System.exit(0);
-            }
-        }
-    }
-
-    public static void login() {
-        Scanner input1 = new Scanner(System.in);
-        Scanner input2 = new Scanner(System.in);
-        String user;
-        String pass;
-        while (true) {
-            System.out.print("\nUsername: ");
-            user = input1.nextLine();
-            System.out.print("Password: ");
-            pass = input2.nextLine();
-            ClientData credentials = ClientDataDao.checkCredentials(user, pass);
-            if (credentials != null) {
-                System.out.println("\033[0;34mLogin successful!\033[0m");
-                break;
-            } else {
-                System.out.println("\033[0;31mUsername or password incorrect.\033[0m");
-            }
-        }
-        AccountMenu.loggedInWithUser = user;
-        AccountMenu.loadAccountMenu();
-    }
+public class Register {
 
     public static void register() {
         ClientData clientData = new ClientData();
@@ -132,7 +87,7 @@ public class StartMenu {
         }
         ClientDataDao.createNewClient(clientData);
         System.out.println("\n\033[0;34mNew user account created successfully! Please login with your new credentials.\033[0m");
-        login();
+        Login.login();
     }
 
     public static boolean checkPasswordCriteria(String password) {

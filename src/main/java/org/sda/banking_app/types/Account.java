@@ -1,7 +1,7 @@
-package org.sda.BankingApp.types;
+package org.sda.banking_app.types;
 
-import org.sda.BankingApp.types.enums.AccountType;
-import org.sda.BankingApp.types.enums.Currency;
+import org.sda.banking_app.types.enums.AccountType;
+import org.sda.banking_app.types.enums.Currency;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -35,12 +35,6 @@ public class Account {
     private List<BankTransaction> bankTransactions = new ArrayList<>();
 
     public Account() {
-    }
-
-    public Account(String username, AccountType accountType, Currency currency) {
-        this.username = username;
-        this.accountType = accountType;
-        this.currency = currency;
     }
 
     public void setUsername(String username) {

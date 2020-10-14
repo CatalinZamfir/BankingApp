@@ -1,10 +1,9 @@
-package org.sda.BankingApp.types;
+package org.sda.banking_app.types;
 
-import org.sda.BankingApp.types.enums.TransactionType;
+import org.sda.banking_app.types.enums.TransactionType;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 
 @Entity(name = "BankTransaction")
@@ -66,6 +65,10 @@ public class BankTransaction {
 
     public TransactionType getTransactionType() {
         return transactionType;
+    }
+
+    public String getForeignAccount() {
+        return foreignAccount;
     }
 }
 

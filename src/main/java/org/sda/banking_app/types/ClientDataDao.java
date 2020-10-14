@@ -1,10 +1,10 @@
-package org.sda.BankingApp.types;
+package org.sda.banking_app.types;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
-import org.sda.BankingApp.config.HibernateUtil;
+import org.sda.banking_app.config.HibernateUtil;
 
 import java.util.List;
 

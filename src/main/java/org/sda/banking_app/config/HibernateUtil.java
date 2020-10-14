@@ -1,13 +1,13 @@
-package org.sda.BankingApp.config;
+package org.sda.banking_app.config;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.cfg.Environment;
 import org.hibernate.service.ServiceRegistry;
-import org.sda.BankingApp.types.Account;
-import org.sda.BankingApp.types.BankTransaction;
-import org.sda.BankingApp.types.ClientData;
+import org.sda.banking_app.types.Account;
+import org.sda.banking_app.types.BankTransaction;
+import org.sda.banking_app.types.ClientData;
 import java.util.Properties;
 
 import static java.util.logging.Level.SEVERE;
