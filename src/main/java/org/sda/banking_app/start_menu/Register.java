@@ -1,7 +1,8 @@
 package org.sda.banking_app.start_menu;
 
+import static org.sda.banking_app.types.ClientDataDao.*;
+
 import org.sda.banking_app.types.ClientData;
-import org.sda.banking_app.types.ClientDataDao;
 
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -15,9 +16,9 @@ public class Register {
         while (true) {
             System.out.print("\nPlease choose a new username: ");
             String username = input1.nextLine();
-            if (ClientDataDao.findByUsername(username) == null) {
+            if (findByUsername(username)) {
                 clientData.setUsername(username);
-                System.out.println("\033[0;34mUsername is available.\033[0m");
+                System.out.println("\033[1;36mUsername is available.\033[0m");
                 break;
             } else {
                 System.out.println("\033[0;31mUsername is already taken.\033[0m");
@@ -42,7 +43,7 @@ public class Register {
                 clientData.setFirstName(firstName);
                 break;
             } else {
-                System.out.println("First name must not be over 30 characters long.");
+                System.out.println("\033[0;31mFirst name must not be over 30 characters long.\033[0m");
             }
         }
         Scanner input4 = new Scanner(System.in);
@@ -53,7 +54,7 @@ public class Register {
                 clientData.setLastName(lastName);
                 break;
             } else {
-                System.out.println("Last name must not be over 30 characters long.");
+                System.out.println("\033[0;31mLast name must not be over 30 characters long.\033[0m");
             }
         }
         Scanner input5 = new Scanner(System.in);
@@ -78,15 +79,17 @@ public class Register {
         while (true) {
             System.out.print("\nPlease enter your email address: ");
             String email = input6.nextLine();
-            if (checkEmailCriteria(email)) {
+            if (checkEmailCriteria(email) && findByEmail(email)) {
                 clientData.setEmail(email);
                 break;
-            } else {
+            } else if (!checkEmailCriteria(email)) {
                 System.out.println("\033[0;31mPlease enter a valid email address.\033[0m");
+            } else if (!findByEmail(email)){
+                System.out.println("\033[0;31mE-Mail address already in use.\033[0m");
             }
         }
-        ClientDataDao.createNewClient(clientData);
-        System.out.println("\n\033[0;34mNew user account created successfully! Please login with your new credentials.\033[0m");
+        createNewClient(clientData);
+        System.out.println("\n\033[1;36mNew user account created successfully! Please login with your new credentials.\033[0m");
         Login.login();
     }
 

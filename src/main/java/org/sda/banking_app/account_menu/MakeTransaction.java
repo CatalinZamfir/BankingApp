@@ -1,16 +1,15 @@
 package org.sda.banking_app.account_menu;
 
+import static org.sda.banking_app.types.BankTransactionDao.*;
+
 import org.sda.banking_app.types.Account;
 import org.sda.banking_app.types.BankTransaction;
-import org.sda.banking_app.types.BankTransactionDao;
 import org.sda.banking_app.types.enums.Currency;
 import org.sda.banking_app.types.enums.TransactionType;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Scanner;
-
-import static org.sda.banking_app.types.BankTransactionDao.createNewTransaction;
 
 public class MakeTransaction {
 
@@ -70,7 +69,7 @@ public class MakeTransaction {
         bankTransaction.setDateAndTime(LocalDateTime.now());
         if (createNewTransaction(bankTransaction)) {
             makeInboundTransaction(bankTransaction);
-            System.out.print("\n\033[0;34mTransaction was successful.\033[0m\n");
+            System.out.print("\n\033[0;36mTransaction was successful.\033[0m\n");
             wait(3000);
         } else {
             System.out.println("\033[0;31mTransaction was unsuccessful.\033[0m");
@@ -82,7 +81,7 @@ public class MakeTransaction {
         if (bankTransaction.getForeignAccount().startsWith("RO04GRUP00009999")) {
             String accNoTemp = bankTransaction.getForeignAccount().substring(16);
             int accountNo = Integer.parseInt(accNoTemp);
-            if (BankTransactionDao.checkForAccount(accountNo)) {
+            if (checkForAccount(accountNo)) {
                 BankTransaction bankTransactionInbound = new BankTransaction();
                 bankTransactionInbound.setTransactionType(TransactionType.INBOUND);
                 bankTransactionInbound.setAccountNo(accountNo);
@@ -95,7 +94,7 @@ public class MakeTransaction {
     }
 
     public static double convertCurrency(int accountNo, double transferAmount) {
-        Currency receiver = BankTransactionDao.getAccountCurrency(accountNo);
+        Currency receiver = getAccountCurrency(accountNo);
         Currency sender = accountList.get(accountIndex - 1).getCurrency();
         double convertedAmount = transferAmount;
         String info = "\n\033[0;33mAttention! Receiver and sender accounts have different currencies!\n";

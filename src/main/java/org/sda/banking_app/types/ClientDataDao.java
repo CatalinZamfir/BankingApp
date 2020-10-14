@@ -23,25 +23,34 @@ public class ClientDataDao {
         }
     }
 
-    public static ClientData findByUsername(String username) {
-        ClientData result = null;
-
+    public static boolean findByUsername(String username) {
         try (Session session = getSession()) {
             String findByUsernameHql = "FROM ClientData p WHERE p.username = :username";
             Query<ClientData> query = session.createQuery(findByUsernameHql);
             query.setParameter("username", username);
-
-            List<ClientData> foundPlayers = query.getResultList();
-
-            if (foundPlayers.isEmpty()) {
-                return result;
-            } else {
-                result = foundPlayers.get(0);
+            List<ClientData> foundAccount = query.getResultList();
+            if (foundAccount.isEmpty()) {
+                return false;
             }
         } catch (HibernateException e) {
             System.out.println(e.getMessage());
         }
-        return result;
+        return true;
+    }
+
+    public static boolean findByEmail(String email) {
+        try (Session session = getSession()) {
+            String findByUsernameHql = "FROM ClientData p WHERE p.email = :email";
+            Query<ClientData> query = session.createQuery(findByUsernameHql);
+            query.setParameter("email", email);
+            List<ClientData> foundAccount = query.getResultList();
+            if (foundAccount.isEmpty()) {
+                return false;
+            }
+        } catch (HibernateException e) {
+            System.out.println(e.getMessage());
+        }
+        return true;
     }
 
     public static ClientData checkCredentials(String user, String pass) {

@@ -1,6 +1,5 @@
 package org.sda.banking_app;
 
-
 import org.sda.banking_app.start_menu.StartMenu;
 
 public class BankingApp {

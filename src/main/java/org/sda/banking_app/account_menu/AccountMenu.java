@@ -3,9 +3,9 @@ package org.sda.banking_app.account_menu;
 import static org.sda.banking_app.account_menu.CreateAccount.createAccount;
 import static org.sda.banking_app.account_menu.MakeTransaction.makeOutboundTransaction;
 import static org.sda.banking_app.start_menu.StartMenu.loadStartMenu;
+import static org.sda.banking_app.types.AccountDao.findAccounts;
 
 import org.sda.banking_app.types.Account;
-import org.sda.banking_app.types.AccountDao;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -18,7 +18,7 @@ public class AccountMenu {
 
     public static void loadAccountMenu(String loggedInWithUser) {
         System.out.printf("\n\n\u001B[7m\033[1;33m ACCOUNT MENU %39s \u001B[0m\n", loggedInWithUser);
-        List<Account> accountList = AccountDao.findAccounts(loggedInWithUser);
+        List<Account> accountList = findAccounts(loggedInWithUser);
         int no = 0;
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");

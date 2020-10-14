@@ -12,7 +12,7 @@ import java.util.Scanner;
 public class CreateAccount {
 
     public static void createAccount(String loggedInWithUser) {
-        System.out.print("\nPLease select the type of the account you would like to open.\n\n");
+        System.out.print("\nPlease select the type of the new account.\n\n");
         System.out.println("[D] Debit   [C] Credit   [S] Savings");
         Scanner input1 = new Scanner(System.in);
         String typeChoice;
@@ -37,7 +37,7 @@ public class CreateAccount {
             }
         }
         while (!(typeChoice.equals("D") || typeChoice.equals("C") || typeChoice.equals("S")));
-        System.out.print("\nPLease select the currency.\n\n");
+        System.out.print("\nPlease select the currency of your new account.\n\n");
         System.out.println("[R] RON   [E] EUR   [U] USD");
         Scanner input2 = new Scanner(System.in);
         String currencyChoice;

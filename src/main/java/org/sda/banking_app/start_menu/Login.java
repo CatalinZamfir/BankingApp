@@ -20,10 +20,10 @@ public class Login {
             pass = input2.nextLine();
             ClientData credentials = ClientDataDao.checkCredentials(user, pass);
             if (credentials != null) {
-                System.out.println("\033[0;34mLogin successful!\033[0m");
+                System.out.println("\033[1;36mLogin successful!\033[0m");
                 break;
             } else {
-                System.out.println("\033[0;31mUsername or password incorrect.\033[0m");
+                System.out.println("\033[1;31mUsername or password incorrect.\033[0m");
             }
         }
         AccountMenu.loadAccountMenu(user);
