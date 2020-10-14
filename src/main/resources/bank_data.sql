@@ -31,9 +31,9 @@ CREATE TABLE `transactions` (
   `reference_id` int(8) NOT NULL AUTO_INCREMENT,
   `transaction_type` int(1) NOT NULL,
   `account_no` int(8) NOT NULL,
-  `transfer_amount` int,
+  `transfer_amount` double,
   `foreign_account` varchar(34) NOT NULL,
-  `date_and_time` date NOT NULL,
+  `date_and_time` datetime NOT NULL,
   PRIMARY KEY (`reference_id`),
   FOREIGN KEY (`account_no`) REFERENCES account(`account_no`)
 );

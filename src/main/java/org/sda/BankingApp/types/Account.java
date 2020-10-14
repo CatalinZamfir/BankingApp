@@ -32,7 +32,7 @@ public class Account {
     private Currency currency;
 
     @OneToMany
-    private List<Transactions> transactions = new ArrayList<>();
+    private List<BankTransaction> bankTransactions = new ArrayList<>();
 
     public Account() {
     }
@@ -57,6 +57,10 @@ public class Account {
 
     public int getAccountNo() {
         return accountNo;
+    }
+
+    public void setBalance(double balance) {
+        this.balance = balance;
     }
 
     public AccountType getAccountType() {

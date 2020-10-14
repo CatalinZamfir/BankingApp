@@ -6,8 +6,8 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.cfg.Environment;
 import org.hibernate.service.ServiceRegistry;
 import org.sda.BankingApp.types.Account;
+import org.sda.BankingApp.types.BankTransaction;
 import org.sda.BankingApp.types.ClientData;
-import org.sda.BankingApp.types.Transactions;
 import java.util.Properties;
 
 import static java.util.logging.Level.SEVERE;
@@ -36,7 +36,7 @@ public class HibernateUtil {
 
         configuration.addAnnotatedClass(Account.class);
         configuration.addAnnotatedClass(ClientData.class);
-        configuration.addAnnotatedClass(Transactions.class);
+        configuration.addAnnotatedClass(BankTransaction.class);
 
         return configuration;
     }

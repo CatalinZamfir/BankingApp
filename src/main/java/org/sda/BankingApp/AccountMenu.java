@@ -2,10 +2,14 @@ package org.sda.BankingApp;
 
 import org.sda.BankingApp.types.Account;
 import org.sda.BankingApp.types.AccountDao;
+import org.sda.BankingApp.types.BankTransaction;
+import org.sda.BankingApp.types.BankTransactionDao;
 import org.sda.BankingApp.types.enums.AccountType;
 import org.sda.BankingApp.types.enums.Currency;
+import org.sda.BankingApp.types.enums.TransactionType;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
@@ -16,6 +20,7 @@ public class AccountMenu {
 
     public static String loggedInWithUser;
     public static List<Account> accountList;
+    public static int accountIndex;
 
     public static void loadAccountMenu() {
         System.out.printf("\n\n\u001B[7m\033[1;33m ACCOUNT MENU %39s \u001B[0m\n", loggedInWithUser);
@@ -79,7 +84,6 @@ public class AccountMenu {
     public static void makeTransaction() {
         System.out.print("\nPlease input the account (index) you would like to make a transfer from.\n");
         Scanner input1 = new Scanner(System.in);
-        int accountIndex;
         while (true) {
             System.out.print("\nChoice: ");
             try {
@@ -117,6 +121,28 @@ public class AccountMenu {
                 System.out.printf("\033[0;31mPlease enter a valid amount (between 0 and %.02f).\033[0m\n", accountList.get(accountIndex - 1).getBalance());
             }
         }
+        BankTransaction bankTransaction = new BankTransaction();
+        bankTransaction.setTransactionType(TransactionType.OUTBOUND);
+        bankTransaction.setAccountNo(accountList.get(accountIndex - 1).getAccountNo());
+        bankTransaction.setTransferAmount(transferAmount);
+        bankTransaction.setForeignAccount(IBAN);
+        bankTransaction.setDateAndTime(LocalDateTime.now());
+        BankTransactionDao.createNewTransaction(bankTransaction);
+        if (IBAN.substring(0,16).equals("RO04GRUP00009999")) {
+            String accNoTemp = IBAN.substring(16);
+            int accountNo = Integer.parseInt(accNoTemp);
+            if (BankTransactionDao.checkForAccount(accountNo)){
+                BankTransaction bankTransactionInbound = new BankTransaction();
+                bankTransactionInbound.setTransactionType(TransactionType.INBOUND);
+                bankTransactionInbound.setAccountNo(accountNo);
+                bankTransactionInbound.setTransferAmount(transferAmount);
+                bankTransactionInbound.setForeignAccount("RO04GRUP00009999" + accountList.get(accountIndex - 1).getAccountNo());
+                bankTransactionInbound.setDateAndTime(LocalDateTime.now());
+                BankTransactionDao.createNewTransaction(bankTransactionInbound);
+            }
+        }
+        System.out.print("\n\033[0;34mTransaction was successful.\033[0m\n");
+        AccountMenu.loadAccountMenu();
     }
 
     public static void createAccount() {
