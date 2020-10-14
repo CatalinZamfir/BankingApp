@@ -1,13 +1,8 @@
 package org.sda.BankingApp;
 
-import org.sda.BankingApp.types.Account;
-import org.sda.BankingApp.types.AccountDao;
 import org.sda.BankingApp.types.ClientData;
 import org.sda.BankingApp.types.ClientDataDao;
-import org.sda.BankingApp.types.enums.AccountType;
-import org.sda.BankingApp.types.enums.Currency;
 
-import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -17,9 +12,9 @@ public class StartMenu {
     public static void loadStartMenu() {
         System.out.print("\n\u001B[7m\033[1;33m Welcome to Group4 Bank!                              \033[0m\n");
         System.out.print("\u001B[7m\033[1;36m                                A bank you can trust. \033[0m\n\n");
-        System.out.println("[L] Login");
-        System.out.println("[R] Register\n");
-        System.out.println("[E] Exit\n");
+        System.out.println("[\033[1;33mL\u001B[0m] Login");
+        System.out.println("[\033[1;33mR\u001B[0m] Register\n");
+        System.out.println("[\033[1;33mE\u001B[0m] Exit\n");
         Scanner input = new Scanner(System.in);
         while (true) {
             System.out.print("Choice: ");
