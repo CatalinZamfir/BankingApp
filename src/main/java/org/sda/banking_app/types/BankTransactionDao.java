@@ -8,6 +8,7 @@ import org.sda.banking_app.config.HibernateUtil;
 import org.sda.banking_app.types.enums.Currency;
 import org.sda.banking_app.types.enums.TransactionType;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class BankTransactionDao {
@@ -81,6 +82,19 @@ public class BankTransactionDao {
             System.out.println(e.getMessage());
         }
         return null;
+    }
+
+    public static List<BankTransaction> findBankTransactions(int accountNo) {
+        List<BankTransaction> bankTransactions = new ArrayList<>();
+        try (Session session = getSession()) {
+            String findAccountsByAccountNoHql = "FROM BankTransaction p WHERE p.accountNo = :accountNo";
+            Query<BankTransaction> query = session.createQuery(findAccountsByAccountNoHql);
+            query.setParameter("accountNo", accountNo);
+            bankTransactions = query.getResultList();
+        } catch (HibernateException e) {
+            System.out.println(e.getMessage());
+        }
+        return bankTransactions;
     }
 
     private static Session getSession() {

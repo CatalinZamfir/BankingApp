@@ -70,6 +70,14 @@ public class BankTransaction {
     public String getForeignAccount() {
         return foreignAccount;
     }
+
+    public int getReferenceId() {
+        return referenceId;
+    }
+
+    public LocalDateTime getDateAndTime() {
+        return dateAndTime;
+    }
 }
 
 

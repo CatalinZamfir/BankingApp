@@ -2,6 +2,7 @@ package org.sda.banking_app.account_menu;
 
 import static org.sda.banking_app.account_menu.CreateAccount.createAccount;
 import static org.sda.banking_app.account_menu.MakeTransaction.makeOutboundTransaction;
+import static org.sda.banking_app.account_menu.ViewTransactionHistory.viewTransactionHistory;
 import static org.sda.banking_app.start_menu.StartMenu.loadStartMenu;
 import static org.sda.banking_app.types.AccountDao.findAccounts;
 
@@ -55,7 +56,7 @@ public class AccountMenu {
                     loadAccountMenu(loggedInWithUser);
                     break;
                 case "V":
-                    // method2();
+                    viewTransactionHistory(accountList);
                     break;
                 case "C":
                     createAccount(loggedInWithUser);
