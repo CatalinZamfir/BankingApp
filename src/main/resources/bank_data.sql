@@ -37,3 +37,5 @@ CREATE TABLE `transactions` (
   PRIMARY KEY (`reference_id`),
   FOREIGN KEY (`account_no`) REFERENCES account(`account_no`)
 );
+
+ALTER TABLE `transactions` AUTO_INCREMENT = 1000001;

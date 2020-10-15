@@ -1,27 +1,29 @@
 package org.sda.banking_app.account_menu;
 
 import org.sda.banking_app.types.Account;
+import org.sda.banking_app.types.AccountDao;
 import org.sda.banking_app.types.BankTransaction;
-
-import static org.sda.banking_app.types.BankTransactionDao.findBankTransactions;
+import org.sda.banking_app.types.enums.Currency;
+import org.sda.banking_app.types.enums.TransactionType;
 
 import java.util.List;
 import java.util.Scanner;
 
+import static org.sda.banking_app.account_menu.AccountMenu.loadAccountMenu;
+import static org.sda.banking_app.types.AccountDao.*;
+import static org.sda.banking_app.types.BankTransactionDao.findBankTransactions;
+
 public class ViewTransactionHistory {
 
-    protected static List<Account> accountList;
-    protected static int accountIndex;
-
-    public static void viewTransactionHistory(List<Account> accounts, String loggedInWithUser) {
-        accountList = accounts;
-        System.out.print("\nPlease input the account (index) you would like to make a transfer from.\n");
+    public static void viewTransactionHistory(List<Account> accounts) {
+        System.out.print("\nPlease select the account (index) of which you would like to see the transaction history.\n");
         Scanner input1 = new Scanner(System.in);
+        int accountIndex;
         while (true) {
-            System.out.print("\nChoice: ");
+            System.out.print("\nInput: ");
             try {
                 accountIndex = input1.nextInt();
-                if (accountIndex <= accountList.size() && accountIndex > 0) {
+                if (accountIndex <= accounts.size() && accountIndex > 0) {
                     break;
                 } else {
                     System.out.println("\033[0;31mPlease enter a valid index number.\033[0m");
@@ -31,32 +33,35 @@ public class ViewTransactionHistory {
                 System.out.println("\033[0;31mPlease enter a valid index number.\033[0m");
             }
         }
-        List<BankTransaction> bankTransactions = findBankTransactions(accountList.get(accountIndex - 1).getAccountNo());
-        System.out.printf("\n\u001B[7m\033[1;36m Your Transactions%36s\u001B[0m\n", "RO04GRUP00009999" + accountList.get(accountIndex-1).getAccountNo());
-        if (accountList.isEmpty()) {
-            System.out.println("You do not have any transaction on this account yet.");
+        printTransactionList(accounts.get(accountIndex - 1).getAccountNo());
+    }
+
+    public static void printTransactionList(int accountNo) {
+        List<BankTransaction> bankTransactions = findBankTransactions(accountNo);
+        Currency currency = getAccountCurrency(accountNo);
+        System.out.printf("\n\u001B[7m\033[1;36m Your Transactions%35s \u001B[0m\n", "RO04GRUP00009999" + accountNo);
+        if (bankTransactions.isEmpty()) {
+            System.out.println("No transactions on this account yet.");
         } else {
+            System.out.print("------------------------------------------------------\n");
             for (BankTransaction bankTransaction : bankTransactions) {
-                System.out.printf("[%d] ", bankTransaction.getReferenceId());
-                System.out.printf("%s ", bankTransaction.getTransactionType());
-                System.out.printf("%s ", bankTransaction.getForeignAccount());
-                System.out.printf("%.2f ", bankTransaction.getTransferAmount());
-                System.out.printf("%s", bankTransaction.getDateAndTime());
-                System.out.println();
+                System.out.printf("%-20s%d\n", "Trans. id:", bankTransaction.getReferenceId());
+                if (bankTransaction.getTransactionType() == TransactionType.INBOUND) {
+                    System.out.printf("%-20s%s\n", "Received from:", bankTransaction.getForeignAccount());
+                }else{
+                    System.out.printf("%-20s%s\n", "Sent to:", bankTransaction.getForeignAccount());
+                }
+                if (bankTransaction.getTransactionType() == TransactionType.INBOUND) {
+                    System.out.printf("%-20s\033[0;92m+%.2f %s\033[0m\n", "Amount:", bankTransaction.getTransferAmount(), currency);
+                } else {
+                    System.out.printf("%-20s\033[0;91m-%.2f %s\033[0m\n", "Amount:", bankTransaction.getTransferAmount(), currency);
+                }
+
+                System.out.printf("%-20s%s\n", "Date/Time:", bankTransaction.getDateAndTime());
+                System.out.print("------------------------------------------------------\n");
             }
+            System.out.printf("%-20s%.2f %s\n", "Balance:", AccountDao.getAccountBalance(accountNo), currency);
         }
-        Scanner input = new Scanner(System.in);
-        String back = null;
-        System.out.println("\n[\033[1;33mB\u001B[0m] Back to account menu \n");
-        do {
-            System.out.print("Choice: ");
-            back = input.nextLine();
-            back = back.toUpperCase();
-            if(!back.equals("B")){
-                System.out.println("\033[0;31mInvalid choice.\033[0m");
-            }
-        }
-         while(!back.equals("B"));
-            AccountMenu.loadAccountMenu(loggedInWithUser);
-}
+        loadAccountMenu();
+    }
 }

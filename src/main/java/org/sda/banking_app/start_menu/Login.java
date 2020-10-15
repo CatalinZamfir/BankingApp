@@ -1,6 +1,8 @@
 package org.sda.banking_app.start_menu;
 
-import org.sda.banking_app.account_menu.AccountMenu;
+import static org.sda.banking_app.account_menu.AccountMenu.loadAccountMenu;
+import static org.sda.banking_app.account_menu.AccountMenu.setActiveUser;
+
 import org.sda.banking_app.types.ClientData;
 import org.sda.banking_app.types.ClientDataDao;
 
@@ -11,14 +13,14 @@ public class Login {
     public static void login() {
         Scanner input1 = new Scanner(System.in);
         Scanner input2 = new Scanner(System.in);
-        String user;
-        String pass;
+        String username;
+        String password;
         while (true) {
             System.out.print("\nUsername: ");
-            user = input1.nextLine();
+            username = input1.nextLine();
             System.out.print("Password: ");
-            pass = input2.nextLine();
-            ClientData credentials = ClientDataDao.checkCredentials(user, pass);
+            password = input2.nextLine();
+            ClientData credentials = ClientDataDao.checkCredentials(username, password);
             if (credentials != null) {
                 System.out.println("\033[1;36mLogin successful!\033[0m");
                 break;
@@ -26,7 +28,8 @@ public class Login {
                 System.out.println("\033[1;31mUsername or password incorrect.\033[0m");
             }
         }
-        AccountMenu.loadAccountMenu(user);
+        setActiveUser(username);
+        loadAccountMenu();
     }
 
 }

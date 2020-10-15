@@ -15,7 +15,7 @@ public class StartMenu {
         System.out.println("[\033[1;33mE\u001B[0m] Exit\n");
         Scanner input = new Scanner(System.in);
         while (true) {
-            System.out.print("Choice: ");
+            System.out.print("Input: ");
             String choice = input.nextLine();
             choice = choice.toUpperCase();
             if (choice.equals("L")) {

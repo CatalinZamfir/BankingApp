@@ -9,14 +9,15 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Scanner;
 
-public class DepositCash {
+import static org.sda.banking_app.account_menu.AccountMenu.loadAccountMenu;
+
+public class MakeCashDeposit {
+
     protected static List<Account> accountList;
     protected static int accountIndex;
 
-
-    public static void makeDepositCash(List<Account> accounts, String loggedInWithUser) {
+    public static void makeCashDeposit(List<Account> accounts) {
         accountList = accounts;
-
         System.out.print("\nPlease input the account (index) you would like to put the money.\n");
         Scanner input1 = new Scanner(System.in);
         while (true) {
@@ -54,22 +55,11 @@ public class DepositCash {
         bankTransaction.setTransactionType(TransactionType.INBOUND);
         bankTransaction.setAccountNo(accountList.get(accountIndex - 1).getAccountNo());
         bankTransaction.setTransferAmount(transferAmount);
-        bankTransaction.setForeignAccount("ATM Cash Deposit");
+        bankTransaction.setForeignAccount("Cash Deposit");
         bankTransaction.setDateAndTime(LocalDateTime.now());
         BankTransactionDao.createNewTransaction(bankTransaction);
-        Scanner input = new Scanner(System.in);
-        String back = null;
-        System.out.println("\n[\033[1;33mB\u001B[0m] Back to account menu \n");
-        do {
-            System.out.print("Choice: ");
-            back = input.nextLine();
-            back = back.toUpperCase();
-            if(!back.equals("B")){
-                System.out.println("\033[0;31mInvalid choice.\033[0m");
-            }
-        }
-        while(!back.equals("B"));
-        AccountMenu.loadAccountMenu(loggedInWithUser);
+        loadAccountMenu();
     }
+
 }
 

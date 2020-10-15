@@ -1,6 +1,7 @@
 package org.sda.banking_app.account_menu;
 
 import static org.sda.banking_app.account_menu.CreateAccount.createAccount;
+import static org.sda.banking_app.account_menu.MakeCashDeposit.makeCashDeposit;
 import static org.sda.banking_app.account_menu.MakeTransaction.makeOutboundTransaction;
 import static org.sda.banking_app.account_menu.ViewTransactionHistory.viewTransactionHistory;
 import static org.sda.banking_app.start_menu.StartMenu.loadStartMenu;
@@ -16,10 +17,11 @@ import java.util.Scanner;
 public class AccountMenu {
 
     static final String INVALIDMESSAGE = "\033[0;31mInvalid choice.\033[0m\n";
+    static String activeUser;
 
-    public static void loadAccountMenu(String loggedInWithUser) {
-        System.out.printf("\n\n\u001B[7m\033[1;33m ACCOUNT MENU %39s \u001B[0m\n", loggedInWithUser);
-        List<Account> accountList = findAccounts(loggedInWithUser);
+    public static void loadAccountMenu() {
+        System.out.printf("\n\n\u001B[7m\033[1;33m ACCOUNT MENU %39s \u001B[0m\n", activeUser);
+        List<Account> accountList = findAccounts(activeUser);
         int no = 0;
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
@@ -47,25 +49,26 @@ public class AccountMenu {
         Scanner input = new Scanner(System.in);
         String choice;
         do {
-            System.out.print("Choice: ");
+            System.out.print("Input: ");
             choice = input.nextLine();
             choice = choice.toUpperCase();
             switch (choice) {
                 case "M":
                     makeOutboundTransaction(accountList);
-                    loadAccountMenu(loggedInWithUser);
+                    loadAccountMenu();
                     break;
                 case "V":
-                    viewTransactionHistory(accountList,loggedInWithUser);
+                    viewTransactionHistory(accountList);
                     break;
                 case "C":
-                    createAccount(loggedInWithUser);
+                    createAccount();
                     break;
                 case "D":
-                    DepositCash.makeDepositCash(accountList,loggedInWithUser);
+                    makeCashDeposit(accountList);
                     break;
                 case "L":
                     System.out.println();
+                    setActiveUser(null);
                     loadStartMenu();
                     break;
                 default:
@@ -74,6 +77,10 @@ public class AccountMenu {
             }
         }
         while (!(choice.equals("M") || choice.equals("V") || choice.equals("C") || choice.equals("D") || choice.equals("L")));
+    }
+
+    public static void setActiveUser(String username) {
+        activeUser = username;
     }
 
 }

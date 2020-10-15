@@ -1,5 +1,7 @@
 package org.sda.banking_app.account_menu;
 
+import static org.sda.banking_app.types.AccountDao.checkForAccount;
+import static org.sda.banking_app.types.AccountDao.getAccountCurrency;
 import static org.sda.banking_app.types.BankTransactionDao.*;
 
 import org.sda.banking_app.types.Account;
@@ -25,7 +27,7 @@ public class MakeTransaction {
         System.out.print("\nPlease input the account (index) you would like to make a transfer from.\n");
         Scanner input1 = new Scanner(System.in);
         while (true) {
-            System.out.print("\nChoice: ");
+            System.out.print("\nInput: ");
             try {
                 accountIndex = input1.nextInt();
                 if (accountIndex <= accountList.size() && accountIndex > 0) {

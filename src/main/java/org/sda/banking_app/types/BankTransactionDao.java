@@ -5,11 +5,12 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.sda.banking_app.config.HibernateUtil;
-import org.sda.banking_app.types.enums.Currency;
 import org.sda.banking_app.types.enums.TransactionType;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.sda.banking_app.types.AccountDao.getAccountBalance;
 
 public class BankTransactionDao {
 
@@ -33,55 +34,6 @@ public class BankTransactionDao {
             }
         }
         return true;
-    }
-
-    public static boolean checkForAccount(int accountNo) {
-        try (Session session = getSession()) {
-            String findAccount = "FROM Account p WHERE p.accountNo = :accountNo";
-            Query<Account> query = session.createQuery(findAccount);
-            query.setParameter("accountNo", accountNo);
-            List<Account> foundAccount = query.getResultList();
-            if (foundAccount.isEmpty()) {
-                return false;
-            }
-        } catch (HibernateException e) {
-            System.out.println(e.getMessage());
-        }
-        return true;
-    }
-
-    private static double getAccountBalance(int accountNo) {
-        try (Session session = getSession()) {
-            String findAccount = "FROM Account p WHERE p.accountNo = :accountNo";
-            Query<Account> query = session.createQuery(findAccount);
-            query.setParameter("accountNo", accountNo);
-            List<Account> foundAccount = query.getResultList();
-            if (foundAccount.isEmpty()) {
-                return 0;
-            } else {
-                return foundAccount.get(0).getBalance();
-            }
-        } catch (HibernateException e) {
-            System.out.println(e.getMessage());
-        }
-        return 0;
-    }
-
-    public static Currency getAccountCurrency(int accountNo) {
-        try (Session session = getSession()) {
-            String findAccount = "FROM Account p WHERE p.accountNo = :accountNo";
-            Query<Account> query = session.createQuery(findAccount);
-            query.setParameter("accountNo", accountNo);
-            List<Account> foundAccount = query.getResultList();
-            if (foundAccount.isEmpty()) {
-                return null;
-            } else {
-                return foundAccount.get(0).getCurrency();
-            }
-        } catch (HibernateException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
     }
 
     public static List<BankTransaction> findBankTransactions(int accountNo) {
