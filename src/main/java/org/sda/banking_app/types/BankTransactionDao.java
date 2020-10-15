@@ -101,4 +101,5 @@ public class BankTransactionDao {
         return HibernateUtil.getSessionFactory().openSession();
     }
 
+
 }

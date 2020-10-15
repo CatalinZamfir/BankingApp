@@ -56,13 +56,13 @@ public class AccountMenu {
                     loadAccountMenu(loggedInWithUser);
                     break;
                 case "V":
-                    viewTransactionHistory(accountList);
+                    viewTransactionHistory(accountList,loggedInWithUser);
                     break;
                 case "C":
                     createAccount(loggedInWithUser);
                     break;
                 case "D":
-                    // method4();
+                    DepositCash.makeDepositCash(accountList,loggedInWithUser);
                     break;
                 case "L":
                     System.out.println();

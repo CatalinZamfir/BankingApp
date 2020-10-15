@@ -16,7 +16,7 @@ public class Register {
         while (true) {
             System.out.print("\nPlease choose a new username: ");
             String username = input1.nextLine();
-            if (findByUsername(username)) {
+            if (!findByUsername(username)) {
                 clientData.setUsername(username);
                 System.out.println("\033[1;36mUsername is available.\033[0m");
                 break;
@@ -79,7 +79,7 @@ public class Register {
         while (true) {
             System.out.print("\nPlease enter your email address: ");
             String email = input6.nextLine();
-            if (checkEmailCriteria(email) && findByEmail(email)) {
+            if (checkEmailCriteria(email) && !findByEmail(email)) {
                 clientData.setEmail(email);
                 break;
             } else if (!checkEmailCriteria(email)) {
