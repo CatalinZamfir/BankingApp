@@ -9,6 +9,7 @@ import org.sda.banking_app.types.enums.TransactionType;
 import java.util.List;
 import java.util.Scanner;
 
+import static org.sda.banking_app.account_menu.AccountMenu.goBackToAccountMenu;
 import static org.sda.banking_app.account_menu.AccountMenu.loadAccountMenu;
 import static org.sda.banking_app.types.AccountDao.*;
 import static org.sda.banking_app.types.BankTransactionDao.findBankTransactions;
@@ -62,6 +63,6 @@ public class ViewTransactionHistory {
             }
             System.out.printf("%-20s%.2f %s\n", "Balance:", AccountDao.getAccountBalance(accountNo), currency);
         }
-        loadAccountMenu();
+        goBackToAccountMenu();
     }
 }

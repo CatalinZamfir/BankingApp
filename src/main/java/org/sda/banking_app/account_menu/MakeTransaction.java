@@ -1,5 +1,6 @@
 package org.sda.banking_app.account_menu;
 
+import static org.sda.banking_app.account_menu.AccountMenu.goBackToAccountMenu;
 import static org.sda.banking_app.types.AccountDao.checkForAccount;
 import static org.sda.banking_app.types.AccountDao.getAccountCurrency;
 import static org.sda.banking_app.types.BankTransactionDao.*;
@@ -72,11 +73,10 @@ public class MakeTransaction {
         if (createNewTransaction(bankTransaction)) {
             makeInboundTransaction(bankTransaction);
             System.out.print("\n\033[0;36mTransaction was successful.\033[0m\n");
-            wait(3000);
         } else {
             System.out.println("\033[0;31mTransaction was unsuccessful.\033[0m");
-            wait(3000);
         }
+        goBackToAccountMenu();
     }
 
     public static void makeInboundTransaction(BankTransaction bankTransaction) {
@@ -120,16 +120,7 @@ public class MakeTransaction {
             System.out.printf("%s%.2f EUR will be converted to %.2f USD at a rate of %f USD/EUR.", info, transferAmount, convertedAmount, EUR_USD);
         }
         System.out.print("\n\u001B[0m");
-        wait(5000);
         return convertedAmount;
-    }
-
-    public static void wait(int ms) {
-        try {
-            Thread.sleep(ms);
-        } catch (InterruptedException ex) {
-            Thread.currentThread().interrupt();
-        }
     }
 
 }

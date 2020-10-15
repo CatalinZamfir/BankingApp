@@ -9,7 +9,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Scanner;
 
+import static org.sda.banking_app.account_menu.AccountMenu.goBackToAccountMenu;
 import static org.sda.banking_app.account_menu.AccountMenu.loadAccountMenu;
+import static org.sda.banking_app.types.BankTransactionDao.createNewTransaction;
 
 public class MakeCashDeposit {
 
@@ -57,8 +59,12 @@ public class MakeCashDeposit {
         bankTransaction.setTransferAmount(transferAmount);
         bankTransaction.setForeignAccount("Cash Deposit");
         bankTransaction.setDateAndTime(LocalDateTime.now());
-        BankTransactionDao.createNewTransaction(bankTransaction);
-        loadAccountMenu();
+        if (createNewTransaction(bankTransaction)) {
+            System.out.print("\n\033[0;36mTransaction was successful.\033[0m\n");
+        } else {
+            System.out.println("\033[0;31mTransaction was unsuccessful.\033[0m");
+        }
+        goBackToAccountMenu();
     }
 
 }

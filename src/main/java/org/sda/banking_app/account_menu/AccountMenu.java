@@ -83,4 +83,11 @@ public class AccountMenu {
         activeUser = username;
     }
 
+    public static void goBackToAccountMenu(){
+        System.out.print("\nPress [Enter] to go back to the Account Menu.");
+        Scanner input = new Scanner(System.in);
+        String enter = input.nextLine();
+        loadAccountMenu();
+    }
+
 }
