@@ -2,7 +2,7 @@ package org.sda.banking_app.account_menu;
 
 import static org.sda.banking_app.account_menu.CreateAccount.createAccount;
 import static org.sda.banking_app.account_menu.MakeCashDeposit.makeCashDeposit;
-import static org.sda.banking_app.account_menu.MakeTransaction.makeOutboundTransaction;
+import static org.sda.banking_app.account_menu.MakeTransaction.makeTransaction;
 import static org.sda.banking_app.account_menu.ViewTransactionHistory.viewTransactionHistory;
 import static org.sda.banking_app.start_menu.StartMenu.loadStartMenu;
 import static org.sda.banking_app.types.AccountDao.findAccounts;
@@ -17,11 +17,19 @@ import java.util.Scanner;
 public class AccountMenu {
 
     static final String INVALIDMESSAGE = "\033[0;31mInvalid choice.\033[0m\n";
-    static String activeUser;
+    static final String IBANPREFIX = "RO04GRUP00009999";
+
+    static final double RON_EUR = 0.205096;
+    static final double RON_USD = 0.240900;
+    static final double EUR_USD = 1.174700;
+
+    protected static String activeUser;
+    protected static List<Account> accountList;
+    protected static int accountIndex;
 
     public static void loadAccountMenu() {
         System.out.printf("\n\n\u001B[7m\033[1;33m ACCOUNT MENU %39s \u001B[0m\n", activeUser);
-        List<Account> accountList = findAccounts(activeUser);
+        accountList = findAccounts(activeUser);
         int no = 0;
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
@@ -54,7 +62,7 @@ public class AccountMenu {
             choice = choice.toUpperCase();
             switch (choice) {
                 case "M":
-                    makeOutboundTransaction(accountList);
+                    makeTransaction(accountList);
                     loadAccountMenu();
                     break;
                 case "V":
@@ -83,10 +91,28 @@ public class AccountMenu {
         activeUser = username;
     }
 
+    public static void getIndexSelection() {
+        Scanner input = new Scanner(System.in);
+        while (true) {
+            System.out.print("\nInput: ");
+            try {
+                accountIndex = input.nextInt();
+                if (accountIndex <= accountList.size() && accountIndex > 0) {
+                    break;
+                } else {
+                    System.out.println("\033[0;31mPlease enter a valid index number.\033[0m");
+                }
+            } catch (java.util.InputMismatchException e) {
+                input.nextLine();
+                System.out.println("\033[0;31mPlease enter a valid index number.\033[0m");
+            }
+        }
+    }
+
     public static void goBackToAccountMenu(){
         System.out.print("\nPress [Enter] to go back to the Account Menu.");
         Scanner input = new Scanner(System.in);
-        String enter = input.nextLine();
+        input.nextLine();
         loadAccountMenu();
     }
 

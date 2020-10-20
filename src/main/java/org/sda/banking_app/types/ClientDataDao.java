@@ -39,6 +39,20 @@ public class ClientDataDao {
         return true;
     }
 
+    public static String getName(String username) {
+        String name = null;
+        try (Session session = getSession()) {
+            String findByUsernameHql = "FROM ClientData p WHERE p.username = :username";
+            Query<ClientData> query = session.createQuery(findByUsernameHql);
+            query.setParameter("username", username);
+            List<ClientData> foundAccount = query.getResultList();
+            name = foundAccount.get(0).getFirstName() + " " + foundAccount.get(0).getLastName();
+        } catch (HibernateException e) {
+            System.out.println(e.getMessage());
+        }
+        return name;
+    }
+
     public static boolean findByEmail(String email) {
         try (Session session = getSession()) {
             String findByUsernameHql = "FROM ClientData p WHERE p.email = :email";

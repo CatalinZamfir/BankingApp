@@ -1,7 +1,6 @@
 package org.sda.banking_app.account_menu;
 
-import static org.sda.banking_app.account_menu.AccountMenu.activeUser;
-import static org.sda.banking_app.start_menu.Login.login;
+import static org.sda.banking_app.account_menu.AccountMenu.*;
 import static org.sda.banking_app.types.AccountDao.createNewAccount;
 
 import org.sda.banking_app.types.Account;
@@ -69,13 +68,7 @@ public class CreateAccount {
         account.setCurrency(currency);
         createNewAccount(account);
         System.out.print("\n\033[0;34mYour new account was succesfully created.\033[0m\n");
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException ex) {
-            Thread.currentThread().interrupt();
-        }
-        System.out.println("Please log in with your new credentials.");
-        login();
+        goBackToAccountMenu();
     }
 
 }

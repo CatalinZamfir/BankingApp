@@ -29,6 +29,9 @@ public class BankTransaction {
     @Column(name = "foreign_account")
     private String foreignAccount;
 
+    @Column(name = "name")
+    private String name;
+
     @Column(name = "date_and_time")
     private LocalDateTime dateAndTime;
 
@@ -55,6 +58,10 @@ public class BankTransaction {
         this.dateAndTime = dateAndTime;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public int getAccountNo() {
         return accountNo;
     }
@@ -69,6 +76,10 @@ public class BankTransaction {
 
     public String getForeignAccount() {
         return foreignAccount;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public int getReferenceId() {

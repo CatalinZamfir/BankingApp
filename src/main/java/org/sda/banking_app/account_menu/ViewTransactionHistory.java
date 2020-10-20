@@ -10,31 +10,35 @@ import java.util.List;
 import java.util.Scanner;
 
 import static org.sda.banking_app.account_menu.AccountMenu.goBackToAccountMenu;
-import static org.sda.banking_app.account_menu.AccountMenu.loadAccountMenu;
-import static org.sda.banking_app.types.AccountDao.*;
+import static org.sda.banking_app.types.AccountDao.getAccountCurrency;
 import static org.sda.banking_app.types.BankTransactionDao.findBankTransactions;
 
 public class ViewTransactionHistory {
 
     public static void viewTransactionHistory(List<Account> accounts) {
-        System.out.print("\nPlease select the account (index) of which you would like to see the transaction history.\n");
-        Scanner input1 = new Scanner(System.in);
-        int accountIndex;
-        while (true) {
-            System.out.print("\nInput: ");
-            try {
-                accountIndex = input1.nextInt();
-                if (accountIndex <= accounts.size() && accountIndex > 0) {
-                    break;
-                } else {
+        if (accounts.isEmpty()) {
+            System.out.println("\n\033[0;31mYou do not have any active accounts. Please create an account first.\033[0m");
+        } else {
+            System.out.print("\nPlease select the account (index) of which you would like to see the transaction history.\n");
+            Scanner input1 = new Scanner(System.in);
+            int accountIndex;
+            while (true) {
+                System.out.print("\nInput: ");
+                try {
+                    accountIndex = input1.nextInt();
+                    if (accountIndex <= accounts.size() && accountIndex > 0) {
+                        break;
+                    } else {
+                        System.out.println("\033[0;31mPlease enter a valid index number.\033[0m");
+                    }
+                } catch (java.util.InputMismatchException e) {
+                    input1.nextLine();
                     System.out.println("\033[0;31mPlease enter a valid index number.\033[0m");
                 }
-            } catch (java.util.InputMismatchException e) {
-                input1.nextLine();
-                System.out.println("\033[0;31mPlease enter a valid index number.\033[0m");
             }
+            printTransactionList(accounts.get(accountIndex - 1).getAccountNo());
         }
-        printTransactionList(accounts.get(accountIndex - 1).getAccountNo());
+        goBackToAccountMenu();
     }
 
     public static void printTransactionList(int accountNo) {
@@ -49,20 +53,25 @@ public class ViewTransactionHistory {
                 System.out.printf("%-20s%d\n", "Trans. id:", bankTransaction.getReferenceId());
                 if (bankTransaction.getTransactionType() == TransactionType.INBOUND) {
                     System.out.printf("%-20s%s\n", "Received from:", bankTransaction.getForeignAccount());
-                }else{
+
+                } else {
                     System.out.printf("%-20s%s\n", "Sent to:", bankTransaction.getForeignAccount());
+                }
+                try {
+                    if (!bankTransaction.getName().isEmpty()) {
+                        System.out.printf("%-20s%s\n", "", bankTransaction.getName());
+                    }
+                } catch (java.lang.NullPointerException ignored) {
                 }
                 if (bankTransaction.getTransactionType() == TransactionType.INBOUND) {
                     System.out.printf("%-20s\033[0;92m+%.2f %s\033[0m\n", "Amount:", bankTransaction.getTransferAmount(), currency);
                 } else {
                     System.out.printf("%-20s\033[0;91m-%.2f %s\033[0m\n", "Amount:", bankTransaction.getTransferAmount(), currency);
                 }
-
                 System.out.printf("%-20s%s\n", "Date/Time:", bankTransaction.getDateAndTime());
                 System.out.print("------------------------------------------------------\n");
             }
             System.out.printf("%-20s%.2f %s\n", "Balance:", AccountDao.getAccountBalance(accountNo), currency);
         }
-        goBackToAccountMenu();
     }
 }

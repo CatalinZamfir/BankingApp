@@ -33,6 +33,7 @@ CREATE TABLE `transactions` (
   `account_no` int(8) NOT NULL,
   `transfer_amount` double,
   `foreign_account` varchar(34) NOT NULL,
+  `name` varchar(50),
   `date_and_time` datetime NOT NULL,
   PRIMARY KEY (`reference_id`),
   FOREIGN KEY (`account_no`) REFERENCES account(`account_no`)
