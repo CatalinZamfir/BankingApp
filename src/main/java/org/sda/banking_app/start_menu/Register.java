@@ -34,10 +34,10 @@ public class Register {
         while (true) {
             System.out.print("\nPlease choose a new username: ");
             String username = input.nextLine();
-            if (!findByUsername(username)) {
+            if (!findByUsername(username) && !username.isEmpty()) {
                 System.out.println("\033[1;36mUsername is available.\033[0m");
                 return username;
-            } else {
+            } else if (findByUsername(username)){
                 System.out.println("\033[0;31mUsername is already taken.\033[0m");
             }
         }
@@ -61,9 +61,9 @@ public class Register {
         while (true) {
             System.out.print("\nPlease enter your first name: ");
             String firstName = input.nextLine();
-            if (firstName.length() < 30) {
+            if (firstName.length() <= 30 && !firstName.isEmpty()) {
                 return firstName;
-            } else {
+            } else if (firstName.length() > 30) {
                 System.out.println("\033[0;31mFirst name must not be over 30 characters long.\033[0m");
             }
         }
@@ -74,9 +74,9 @@ public class Register {
         while (true) {
             System.out.print("\nPlease enter your last name: ");
             String lastName = input.nextLine();
-            if (lastName.length() < 30) {
+            if (lastName.length() <= 30 && !lastName.isEmpty()) {
                 return lastName;
-            } else {
+            } else if (lastName.length() > 30) {
                 System.out.println("\033[0;31mLast name must not be over 30 characters long.\033[0m");
             }
         }
