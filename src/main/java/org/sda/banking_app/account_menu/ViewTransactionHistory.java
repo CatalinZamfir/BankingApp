@@ -37,8 +37,9 @@ public class ViewTransactionHistory {
                 }
             }
             printTransactionList(accounts.get(accountIndex - 1).getAccountNo());
+            goBackToAccountMenu();
         }
-        goBackToAccountMenu();
+
     }
 
     public static void printTransactionList(int accountNo) {
