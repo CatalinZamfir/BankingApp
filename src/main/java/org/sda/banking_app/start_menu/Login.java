@@ -20,8 +20,7 @@ public class Login {
             username = input1.nextLine();
             System.out.print("Password: ");
             password = input2.nextLine();
-            ClientData credentials = ClientDataDao.checkCredentials(username, password);
-            if (credentials != null) {
+            if (ClientDataDao.checkCredentials(username, password)) {
                 System.out.println("\033[1;36mLogin successful!\033[0m");
                 break;
             } else {

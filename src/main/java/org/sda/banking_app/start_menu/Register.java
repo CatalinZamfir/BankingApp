@@ -98,7 +98,6 @@ public class Register {
                     } else {
                         System.out.println("\033[0;31mCNP is invalid. Please enter a valid CNP.\033[0m");
                     }
-
                 }
             } catch (java.util.InputMismatchException e) {
                 input.nextLine();
@@ -116,7 +115,7 @@ public class Register {
                 return email;
             } else if (!checkEmailCriteria(email)) {
                 System.out.println("\033[0;31mPlease enter a valid email address.\033[0m");
-            } else if (!findByEmail(email)) {
+            } else if (findByEmail(email)) {
                 System.out.println("\033[0;31mE-Mail address already in use.\033[0m");
             }
         }

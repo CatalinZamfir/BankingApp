@@ -84,8 +84,7 @@ public class ClientDataDao {
         return true;
     }
 
-    public static ClientData checkCredentials(String user, String pass) {
-        ClientData result = null;
+    public static boolean checkCredentials(String user, String pass) {
         try (Session session = getSession()) {
             String findByUsernameHql = "FROM ClientData p WHERE p.username = :username AND p.password = :password";
             Query<ClientData> query = session.createQuery(findByUsernameHql);
@@ -93,14 +92,12 @@ public class ClientDataDao {
             query.setParameter("password", pass);
             List<ClientData> foundPlayers = query.getResultList();
             if (foundPlayers.isEmpty()) {
-                return result;
-            } else {
-                result = foundPlayers.get(0);
+                return false;
             }
         } catch (HibernateException e) {
             System.out.println(e.getMessage());
         }
-        return result;
+        return true;
     }
 
     private static Session getSession() {
