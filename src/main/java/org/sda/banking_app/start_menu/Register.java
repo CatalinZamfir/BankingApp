@@ -29,7 +29,7 @@ public class Register {
         }
     }
 
-    public static String registerUsername() {
+    private static String registerUsername() {
         Scanner input = new Scanner(System.in);
         while (true) {
             System.out.print("\nPlease choose a new username: ");
@@ -43,7 +43,7 @@ public class Register {
         }
     }
 
-    public static String registerPassword() {
+    private static String registerPassword() {
         Scanner input = new Scanner(System.in);
         while (true) {
             System.out.print("\nPlease choose a password: ");
@@ -56,7 +56,7 @@ public class Register {
         }
     }
 
-    public static String registerFirstName() {
+    private static String registerFirstName() {
         Scanner input = new Scanner(System.in);
         while (true) {
             System.out.print("\nPlease enter your first name: ");
@@ -69,7 +69,7 @@ public class Register {
         }
     }
 
-    public static String registerLastName() {
+    private static String registerLastName() {
         Scanner input = new Scanner(System.in);
         while (true) {
             System.out.print("\nPlease enter your last name: ");
@@ -82,7 +82,7 @@ public class Register {
         }
     }
 
-    public static Long registerCNP() {
+    private static Long registerCNP() {
         Scanner input = new Scanner(System.in);
         Long cnp;
         while (true) {
@@ -102,7 +102,7 @@ public class Register {
         }
     }
 
-    public static String registerEmail() {
+    private static String registerEmail() {
         Scanner input = new Scanner(System.in);
         while (true) {
             System.out.print("\nPlease enter your email address: ");
@@ -117,7 +117,7 @@ public class Register {
         }
     }
 
-    public static boolean checkPasswordCriteria(String password) {
+    private static boolean checkPasswordCriteria(String password) {
         if (password.length() >= 8) {
             Matcher hasUppercaseLetter = Pattern.compile("[A-Z]").matcher(password);
             Matcher hasLowercaseLetter = Pattern.compile("[a-z]").matcher(password);
@@ -129,7 +129,7 @@ public class Register {
         }
     }
 
-    public static boolean checkEmailCriteria(String email) {
+    private static boolean checkEmailCriteria(String email) {
         Matcher valid = Pattern.compile("^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$").matcher(email);
         return valid.matches();
     }
