@@ -71,4 +71,8 @@ public class CreateAccount {
         goBackToAccountMenu();
     }
 
+    private CreateAccount(){
+        throw new IllegalStateException();
+    }
+
 }

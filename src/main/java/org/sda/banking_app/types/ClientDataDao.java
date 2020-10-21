@@ -6,22 +6,23 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.sda.banking_app.config.HibernateUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ClientDataDao {
 
-    public static void createNewClient(ClientData clientData) {
+    public static boolean createNewClient(ClientData clientData) {
         Transaction transaction = null;
         try (Session session = getSession()){
             transaction = session.beginTransaction();
             session.save(clientData);
             transaction.commit();
+            return true;
         } catch (HibernateException e) {
             if (transaction != null) {
                 transaction.rollback();
             }
         }
+        return false;
     }
 
     public static boolean findByUsername(String username) {

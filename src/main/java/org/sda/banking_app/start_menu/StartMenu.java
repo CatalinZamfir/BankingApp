@@ -30,5 +30,7 @@ public class StartMenu {
         }
     }
 
-
+    private StartMenu(){
+        throw new IllegalStateException();
+    }
 }

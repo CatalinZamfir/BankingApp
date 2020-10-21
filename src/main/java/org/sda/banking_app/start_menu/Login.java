@@ -32,4 +32,8 @@ public class Login {
         loadAccountMenu();
     }
 
+    private Login(){
+        throw new IllegalStateException();
+    }
+
 }

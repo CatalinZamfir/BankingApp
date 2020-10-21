@@ -1,18 +1,18 @@
 package org.sda.banking_app.account_menu;
 
-import static org.sda.banking_app.account_menu.CreateAccount.createAccount;
-import static org.sda.banking_app.account_menu.MakeCashDeposit.makeCashDeposit;
-import static org.sda.banking_app.account_menu.MakeTransaction.makeTransaction;
-import static org.sda.banking_app.account_menu.ViewTransactionHistory.viewTransactionHistory;
-import static org.sda.banking_app.start_menu.StartMenu.loadStartMenu;
-import static org.sda.banking_app.types.AccountDao.findAccounts;
-
 import org.sda.banking_app.types.Account;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
+
+import static org.sda.banking_app.account_menu.CreateAccount.createAccount;
+import static org.sda.banking_app.account_menu.MakeCashDeposit.makeCashDeposit;
+import static org.sda.banking_app.account_menu.MakeTransaction.makeTransaction;
+import static org.sda.banking_app.account_menu.ViewTransactionHistory.viewTransactionHistory;
+import static org.sda.banking_app.start_menu.StartMenu.loadStartMenu;
+import static org.sda.banking_app.types.AccountDao.findAccounts;
 
 public class AccountMenu {
 
@@ -48,8 +48,41 @@ public class AccountMenu {
                 System.out.println();
             }
         }
-        System.out.println();
-        System.out.println("[\033[1;33mM\u001B[0m] Make Transaction");
+        if (accountList.isEmpty()) {
+            makeMenuChoiceWhenNoAccounts();
+        } else {
+            makeMenuChoice();
+        }
+    }
+
+    public static void makeMenuChoiceWhenNoAccounts() {
+        System.out.println("\n[\033[1;33mC\u001B[0m] Create Account\n");
+        System.out.println("[\033[1;33mL\u001B[0m] Log Out\n");
+        Scanner input = new Scanner(System.in);
+        String choice;
+        do {
+            System.out.print("Input: ");
+            choice = input.nextLine();
+            choice = choice.toUpperCase();
+            switch (choice) {
+                case "C":
+                    createAccount();
+                    break;
+                case "L":
+                    System.out.println();
+                    setActiveUser(null);
+                    loadStartMenu();
+                    break;
+                default:
+                    System.out.println(INVALIDMESSAGE);
+                    break;
+            }
+        }
+        while (!(choice.equals("C") || choice.equals("L")));
+    }
+
+    public static void makeMenuChoice() {
+        System.out.println("\n[\033[1;33mM\u001B[0m] Make Transaction");
         System.out.println("[\033[1;33mV\u001B[0m] View Transaction History");
         System.out.println("[\033[1;33mC\u001B[0m] Create Account");
         System.out.println("[\033[1;33mD\u001B[0m] Deposit Cash\n");
@@ -87,10 +120,6 @@ public class AccountMenu {
         while (!(choice.equals("M") || choice.equals("V") || choice.equals("C") || choice.equals("D") || choice.equals("L")));
     }
 
-    public static void setActiveUser(String username) {
-        activeUser = username;
-    }
-
     public static void getIndexSelection() {
         Scanner input = new Scanner(System.in);
         while (true) {
@@ -109,11 +138,19 @@ public class AccountMenu {
         }
     }
 
-    public static void goBackToAccountMenu(){
+    public static void setActiveUser(String username) {
+        activeUser = username;
+    }
+
+    public static void goBackToAccountMenu() {
         System.out.print("\nPress [Enter] to go back to the Account Menu.");
         Scanner input = new Scanner(System.in);
         input.nextLine();
         loadAccountMenu();
+    }
+
+    private AccountMenu() {
+        throw new IllegalStateException();
     }
 
 }

@@ -100,16 +100,15 @@ public class MakeTransaction {
     }
 
 
-
     public static String getIBAN() {
         Scanner input = new Scanner(System.in);
-        String IBAN;
+        String iban;
         while (true) {
             System.out.print("\nPlease input the recipient IBAN: ");
-            IBAN = input.nextLine();
+            iban = input.nextLine();
             break;
         }
-        return IBAN;
+        return iban;
     }
 
     public static String getName() {
@@ -145,7 +144,7 @@ public class MakeTransaction {
 
     public static void compareCurrencies(BankTransaction bankTransaction) {
         int foreignAccountNo = Integer.parseInt(bankTransaction.getForeignAccount().substring(16));
-        if (getAccountCurrency(foreignAccountNo) != getAccountCurrency(bankTransaction.getAccountNo())){
+        if (getAccountCurrency(foreignAccountNo) != getAccountCurrency(bankTransaction.getAccountNo())) {
             convertedAmount = convertCurrency(foreignAccountNo, bankTransaction.getTransferAmount());
             System.out.println("\nWould you like to continue [Y/N]?");
             Scanner yesOrNo = new Scanner(System.in);
@@ -167,6 +166,10 @@ public class MakeTransaction {
             }
             while (!(typeChoice.equals("Y") || typeChoice.equals("N")));
         }
+    }
+
+    private MakeTransaction() {
+        throw new IllegalStateException();
     }
 
 }
