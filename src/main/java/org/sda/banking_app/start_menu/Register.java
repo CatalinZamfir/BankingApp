@@ -34,11 +34,13 @@ public class Register {
         while (true) {
             System.out.print("\nPlease choose a new username: ");
             String username = input.nextLine();
-            if (!findByUsername(username) && !username.isEmpty()) {
-                System.out.println("\033[1;36mUsername is available.\033[0m");
-                return username;
-            } else if (findByUsername(username)){
-                System.out.println("\033[0;31mUsername is already taken.\033[0m");
+            if (!username.isEmpty()) {
+                if (!checkForUsername(username)) {
+                    System.out.println("\033[1;36mUsername is available.\033[0m");
+                    return username;
+                } else {
+                    System.out.println("\033[0;31mUsername is already taken.\033[0m");
+                }
             }
         }
     }

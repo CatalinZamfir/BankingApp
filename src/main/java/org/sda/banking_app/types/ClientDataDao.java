@@ -25,7 +25,7 @@ public class ClientDataDao {
         return false;
     }
 
-    public static boolean findByUsername(String username) {
+    public static boolean checkForUsername(String username) {
         try (Session session = getSession()) {
             String findByUsernameHql = "FROM ClientData p WHERE p.username = :username";
             Query<ClientData> query = session.createQuery(findByUsernameHql);

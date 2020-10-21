@@ -49,13 +49,13 @@ public class AccountMenu {
             }
         }
         if (accountList.isEmpty()) {
-            makeMenuChoiceWhenNoAccounts();
+            menuChoiceWhenNoAccounts();
         } else {
-            makeMenuChoice();
+            menuChoice();
         }
     }
 
-    public static void makeMenuChoiceWhenNoAccounts() {
+    public static void menuChoiceWhenNoAccounts() {
         System.out.println("\n[\033[1;33mC\u001B[0m] Create Account\n");
         System.out.println("[\033[1;33mL\u001B[0m] Log Out\n");
         Scanner input = new Scanner(System.in);
@@ -81,7 +81,7 @@ public class AccountMenu {
         while (!(choice.equals("C") || choice.equals("L")));
     }
 
-    public static void makeMenuChoice() {
+    public static void menuChoice() {
         System.out.println("\n[\033[1;33mM\u001B[0m] Make Transaction");
         System.out.println("[\033[1;33mV\u001B[0m] View Transaction History");
         System.out.println("[\033[1;33mC\u001B[0m] Create Account");

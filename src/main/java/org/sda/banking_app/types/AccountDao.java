@@ -3,7 +3,6 @@ package org.sda.banking_app.types;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.query.Query;
 import org.sda.banking_app.config.HibernateUtil;
 import org.sda.banking_app.types.enums.Currency;
 
@@ -12,9 +11,12 @@ import java.util.List;
 
 public class AccountDao {
 
+    static final String FIND_ACCOUNT_HQL = "FROM Account p WHERE p.accountNo = :accountNo";
+    static final String ACCOUNT_NO_PARAMETERS = "accountNo";
+
     public static void createNewAccount(Account account) {
         Transaction transaction = null;
-        try (Session session = getSession()){
+        try (Session session = getSession()) {
             transaction = session.beginTransaction();
             session.save(account);
             transaction.commit();
@@ -29,9 +31,7 @@ public class AccountDao {
         List<Account> accounts = new ArrayList<>();
         try (Session session = getSession()) {
             String findAccountsByUserHql = "FROM Account p WHERE p.username = :username";
-            Query<Account> query = session.createQuery(findAccountsByUserHql);
-            query.setParameter("username", username);
-            accounts = query.getResultList();
+            accounts = session.createQuery(findAccountsByUserHql).setParameter("username", username).getResultList();
         } catch (HibernateException e) {
             System.out.println(e.getMessage());
         }
@@ -40,10 +40,7 @@ public class AccountDao {
 
     public static boolean checkForAccount(int accountNo) {
         try (Session session = getSession()) {
-            String findAccount = "FROM Account p WHERE p.accountNo = :accountNo";
-            Query<Account> query = session.createQuery(findAccount);
-            query.setParameter("accountNo", accountNo);
-            List<Account> foundAccount = query.getResultList();
+            List<Account> foundAccount = session.createQuery(FIND_ACCOUNT_HQL).setParameter(ACCOUNT_NO_PARAMETERS, accountNo).getResultList();
             if (foundAccount.isEmpty()) {
                 return false;
             }
@@ -55,10 +52,7 @@ public class AccountDao {
 
     public static double getAccountBalance(int accountNo) {
         try (Session session = getSession()) {
-            String findAccount = "FROM Account p WHERE p.accountNo = :accountNo";
-            Query<Account> query = session.createQuery(findAccount);
-            query.setParameter("accountNo", accountNo);
-            List<Account> foundAccount = query.getResultList();
+            List<Account> foundAccount = session.createQuery(FIND_ACCOUNT_HQL).setParameter(ACCOUNT_NO_PARAMETERS, accountNo).getResultList();
             if (foundAccount.isEmpty()) {
                 return 0;
             } else {
@@ -72,10 +66,7 @@ public class AccountDao {
 
     public static Currency getAccountCurrency(int accountNo) {
         try (Session session = getSession()) {
-            String findAccount = "FROM Account p WHERE p.accountNo = :accountNo";
-            Query<Account> query = session.createQuery(findAccount);
-            query.setParameter("accountNo", accountNo);
-            List<Account> foundAccount = query.getResultList();
+            List<Account> foundAccount = session.createQuery(FIND_ACCOUNT_HQL).setParameter(ACCOUNT_NO_PARAMETERS, accountNo).getResultList();
             if (foundAccount.isEmpty()) {
                 return null;
             } else {
@@ -89,6 +80,10 @@ public class AccountDao {
 
     private static Session getSession() {
         return HibernateUtil.getSessionFactory().openSession();
+    }
+
+    private AccountDao() {
+        throw new IllegalStateException();
     }
 
 }
