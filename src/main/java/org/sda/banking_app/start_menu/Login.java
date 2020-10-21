@@ -3,7 +3,6 @@ package org.sda.banking_app.start_menu;
 import static org.sda.banking_app.account_menu.AccountMenu.loadAccountMenu;
 import static org.sda.banking_app.account_menu.AccountMenu.setActiveUser;
 
-import org.sda.banking_app.types.ClientData;
 import org.sda.banking_app.types.ClientDataDao;
 
 import java.util.Scanner;

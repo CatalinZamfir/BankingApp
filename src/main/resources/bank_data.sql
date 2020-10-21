@@ -1,4 +1,5 @@
 CREATE DATABASE IF NOT EXISTS `bank_data`;
+ALTER DATABASE bank_data COLLATE = 'latin1_general_cs';
 USE `bank_data`;
 
 DROP TABLE IF EXISTS `transactions`;
