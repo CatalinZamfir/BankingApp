@@ -90,10 +90,15 @@ public class Register {
             try {
                 cnp = input.nextLong();
                 int cnpLength = String.valueOf(cnp).length();
-                if (cnpLength == 13 && (!String.valueOf(cnp).startsWith("0"))) {
+                if (cnpLength == 13 && (!String.valueOf(cnp).startsWith("9")) && !findByCNP(cnp)) {
                     return cnp;
                 } else {
-                    System.out.println("\033[0;31mPlease enter a valid CNP.\033[0m");
+                    if (findByCNP(cnp)) {
+                        System.out.println("\033[0;31mCNP is already in use.\033[0m");
+                    } else {
+                        System.out.println("\033[0;31mCNP is invalid. Please enter a valid CNP.\033[0m");
+                    }
+
                 }
             } catch (java.util.InputMismatchException e) {
                 input.nextLine();

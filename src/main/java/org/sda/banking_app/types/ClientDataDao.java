@@ -40,6 +40,21 @@ public class ClientDataDao {
         return true;
     }
 
+    public static boolean findByCNP(Long cnp) {
+        try (Session session = getSession()) {
+            String findByUsernameHql = "FROM ClientData p WHERE p.cnp = :cnp";
+            Query<ClientData> query = session.createQuery(findByUsernameHql);
+            query.setParameter("cnp", cnp);
+            List<ClientData> foundAccount = query.getResultList();
+            if (foundAccount.isEmpty()) {
+                return false;
+            }
+        } catch (HibernateException e) {
+            System.out.println(e.getMessage());
+        }
+        return true;
+    }
+
     public static String getName(String username) {
         String name = null;
         try (Session session = getSession()) {
